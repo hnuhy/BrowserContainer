@@ -1,0 +1,46 @@
+{
+  "executable": "BC.ElectronNET",
+  "splashscreen": {
+    "imageFile": "/wwwroot/img/splashscreen.jpg"
+  },
+  "name": "BC.ElectronNET",
+  "author": "HNU hy",
+  "singleInstance": false,
+  "build": {
+    "appId": "hnuhy.electronnetbc.app",
+    "productName": "BC.ElectronNET",
+    "copyright": "Copyright © 2021",
+    "buildVersion": "9.31.2",
+    "compression": "maximum",
+    "win": {
+      "icon": "Assets/electron.ico",
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "hnuhy",
+          "repo": "BrowserContainer",
+          "token": ">> Insert GH_TOKEN here! <<"
+        }
+      ]
+    },
+    "directories": {
+      "output": "../../../bin/Desktop",
+      "buildResources": "Assets"
+    },
+    "extraResources": [
+      {
+        "from": "./bin",
+        "to": "bin",
+        "filter": [ "**/*" ]
+      }
+    ],
+    "files": [
+      {
+        "from": "./ElectronHostHook/node_modules",
+        "to": "ElectronHostHook/node_modules",
+        "filter": [ "**/*" ]
+      },
+      "**/*"
+    ]
+  }
+}
