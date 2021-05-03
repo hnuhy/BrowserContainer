@@ -24,12 +24,15 @@ namespace BC.CefSharp
 
         public void InitBrowser()
         {
+            Cef.EnableHighDPISupport();
             CefSettings settings = new CefSettings();
             settings.Locale = "zh-CN";
             Cef.Initialize(settings);
             browser = new ChromiumWebBrowser("http://www.baidu.com");
             this.Controls.Add(browser);
             browser.Dock = DockStyle.Fill;
+            browser.LifeSpanHandler = new LifeSpanHandler();
+            browser.MenuHandler = new MenuHandler();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
