@@ -6,15 +6,34 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn ABC about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <p><button onclick="CallCSharp();">调用C#</button></p>
+    <p><button onclick="CallCSharpCallback();">调用C#并回调</button></p>
+    <p><button onclick="asyncDivOk();">调用C#并异步回调</button></p>
     <script>
         function CallCSharp() {
             try {
-                alert(bcBound.ShowMsg('come from js'));
+                alert(boundObject.showMsg('  come from js  '));
             } catch (e) {
                 alert(e);
             }
 
             return false;
+        }
+
+        function jscallback(s) {
+            alert("jscallback:" + s);
+        }
+
+        function CallCSharpCallback() {
+            boundObject.jsCallback(jscallback);
+            return false;
+        }
+
+        function asyncDivOk() {
+            var call = "Async call (Divide 16 / 2): " + Date();
+            window.boundAsync.div(16, 2).then(function (res) {
+                var end = "Result: " + res + "(" + Date() + ")";
+                alert(call+"->"+ end);
+            });
         }
     </script>
 </div>

@@ -67,7 +67,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BC.cs" />
+    <Compile Include="AsyncBoundObject.cs" />
+    <Compile Include="BoundObject.cs" />
+    <Compile Include="KeyBoardHander.cs" />
+    <Compile Include="RequestHandler.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>

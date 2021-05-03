@@ -28,6 +28,7 @@ namespace BC.CefSharp
             BCCefSharp.Cef.EnableHighDPISupport();
             BCCefSharp.CefSettings settings = new BCCefSharp.CefSettings();
             settings.Locale = "zh-CN";
+            settings.CefCommandLineArgs.Add("--disable-web-security", "1");//关闭同源策略,允许跨域
             //禁用GPU及代理（启用GPU可能会在网页拖拽过程中页面闪烁）
             settings.CefCommandLineArgs.Add("disable-gpu", "1");
             settings.CefCommandLineArgs.Add("no-proxy-server", "1");
@@ -38,12 +39,15 @@ namespace BC.CefSharp
             settings.CefCommandLineArgs.Add("--ignore-certificate-errors", "1");
             BCCefSharp.Cef.Initialize(settings);
             browser = new BCCefSharpWinForms.ChromiumWebBrowser("https://localhost:44396/");
+            //browser.Load( "http://www.google.ca" );
 
-            var obj = new BC(System.Threading.SynchronizationContext.Current);
+            //var obj = new BC(System.Threading.SynchronizationContext.Current);
+            var obj = new BoundObject(this);
             //C#对象注册到JS
 
             //旧方法
-            browser.RegisterJsObject("bcBound", obj);
+            browser.RegisterJsObject("boundObject", obj);
+            browser.RegisterAsyncJsObject("boundAsync", new AsyncBoundObject());
 
             //新版
             //这个一定要开启，否则注入C#的对象无效
@@ -58,7 +62,13 @@ namespace BC.CefSharp
             //不弹出子窗体,控制弹窗的接口是ILifeSpanHandler，并实现OnBeforePopup方法。
             browser.LifeSpanHandler = new LifeSpanHandler();
             //禁用右键的接口是IContextMenuHandler，并实现OnBeforeContextMenu 方法。
-            browser.MenuHandler = new MenuHandler();
+            //browser.MenuHandler = new MenuHandler();
+
+            //自定义请求头
+            browser.RequestHandler = new RequestHandler();
+
+            //自定义按键处理
+            browser.KeyboardHandler = new KeyboardHandler();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -68,7 +78,10 @@ namespace BC.CefSharp
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //调用页面js
+            browser.GetBrowser().MainFrame.ExecuteJavaScriptAsync("jscallback('a');");
             BCCefSharp.Cef.Shutdown();
         }
+
     }
 }
