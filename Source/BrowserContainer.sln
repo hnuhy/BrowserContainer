@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BC.ElectronNET", "BC.Electr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BC.CefSharp", "BC.CefSharp\BC.CefSharp.csproj", "{B3FF72F6-8A22-439E-8AC8-1500DE75BEFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BC.Web", "BC.Web\BC.Web.csproj", "{763506BD-F9EC-404B-89E0-A671EFC4658C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,14 @@ Global
 		{B3FF72F6-8A22-439E-8AC8-1500DE75BEFD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B3FF72F6-8A22-439E-8AC8-1500DE75BEFD}.Release|x86.ActiveCfg = Release|x86
 		{B3FF72F6-8A22-439E-8AC8-1500DE75BEFD}.Release|x86.Build.0 = Release|x86
+		{763506BD-F9EC-404B-89E0-A671EFC4658C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{763506BD-F9EC-404B-89E0-A671EFC4658C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{763506BD-F9EC-404B-89E0-A671EFC4658C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{763506BD-F9EC-404B-89E0-A671EFC4658C}.Debug|x86.Build.0 = Debug|Any CPU
+		{763506BD-F9EC-404B-89E0-A671EFC4658C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{763506BD-F9EC-404B-89E0-A671EFC4658C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{763506BD-F9EC-404B-89E0-A671EFC4658C}.Release|x86.ActiveCfg = Release|Any CPU
+		{763506BD-F9EC-404B-89E0-A671EFC4658C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

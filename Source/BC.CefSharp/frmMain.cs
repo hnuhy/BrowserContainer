@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-using CefSharp;
-using CefSharp.WinForms;
+using BCCefSharp = CefSharp;
+using BCCefSharpWinForms = CefSharp.WinForms;
 
 namespace BC.CefSharp
 {
     public partial class frmMain : Form
     {
-        public ChromiumWebBrowser browser;
+        public BCCefSharpWinForms.ChromiumWebBrowser browser;
 
         public frmMain()
         {
@@ -25,8 +25,8 @@ namespace BC.CefSharp
         public void InitBrowser()
         {
             //使用CEF自带的方法，解决High DPI问题
-            Cef.EnableHighDPISupport();
-            CefSettings settings = new CefSettings();
+            BCCefSharp.Cef.EnableHighDPISupport();
+            BCCefSharp.CefSettings settings = new BCCefSharp.CefSettings();
             settings.Locale = "zh-CN";
             //禁用GPU及代理（启用GPU可能会在网页拖拽过程中页面闪烁）
             settings.CefCommandLineArgs.Add("disable-gpu", "1");
@@ -36,8 +36,23 @@ namespace BC.CefSharp
             //访问连接不安全网页时不显示
             settings.CefCommandLineArgs.Add("--ignore-urlfetcher-cert-requests", "1");
             settings.CefCommandLineArgs.Add("--ignore-certificate-errors", "1");
-            Cef.Initialize(settings);
-            browser = new ChromiumWebBrowser("http://www.baidu.com");
+            BCCefSharp.Cef.Initialize(settings);
+            browser = new BCCefSharpWinForms.ChromiumWebBrowser("https://localhost:44396/");
+
+            var obj = new BC(System.Threading.SynchronizationContext.Current);
+            //C#对象注册到JS
+
+            //旧方法
+            browser.RegisterJsObject("bcBound", obj);
+
+            //新版
+            //这个一定要开启，否则注入C#的对象无效
+            //BCCefSharp.CefSharpSettings.LegacyJavascriptBindingEnabled = true;
+            //构造要注入的对象，参数为当前线程的调度上下文
+            //注册C#对象
+            //browser.JavascriptObjectRepository.Register("bc", obj, false, BCCefSharp.BindingOptions.DefaultBinder);
+
+
             this.Controls.Add(browser);
             browser.Dock = DockStyle.Fill;
             //不弹出子窗体,控制弹窗的接口是ILifeSpanHandler，并实现OnBeforePopup方法。
@@ -53,7 +68,7 @@ namespace BC.CefSharp
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Cef.Shutdown();
+            BCCefSharp.Cef.Shutdown();
         }
     }
 }
