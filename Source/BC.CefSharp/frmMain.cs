@@ -33,6 +33,9 @@ namespace BC.CefSharp
             settings.CefCommandLineArgs.Add("no-proxy-server", "1");
             //主要是配置开启Media的命令参数，此配置可以允许摄像头打开摄像
             settings.CefCommandLineArgs.Add("enable-media-stream", "1");
+            //访问连接不安全网页时不显示
+            settings.CefCommandLineArgs.Add("--ignore-urlfetcher-cert-requests", "1");
+            settings.CefCommandLineArgs.Add("--ignore-certificate-errors", "1");
             Cef.Initialize(settings);
             browser = new ChromiumWebBrowser("http://www.baidu.com");
             this.Controls.Add(browser);
