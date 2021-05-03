@@ -24,14 +24,22 @@ namespace BC.CefSharp
 
         public void InitBrowser()
         {
+            //使用CEF自带的方法，解决High DPI问题
             Cef.EnableHighDPISupport();
             CefSettings settings = new CefSettings();
             settings.Locale = "zh-CN";
+            //禁用GPU及代理（启用GPU可能会在网页拖拽过程中页面闪烁）
+            settings.CefCommandLineArgs.Add("disable-gpu", "1");
+            settings.CefCommandLineArgs.Add("no-proxy-server", "1");
+            //主要是配置开启Media的命令参数，此配置可以允许摄像头打开摄像
+            settings.CefCommandLineArgs.Add("enable-media-stream", "1");
             Cef.Initialize(settings);
             browser = new ChromiumWebBrowser("http://www.baidu.com");
             this.Controls.Add(browser);
             browser.Dock = DockStyle.Fill;
+            //不弹出子窗体,控制弹窗的接口是ILifeSpanHandler，并实现OnBeforePopup方法。
             browser.LifeSpanHandler = new LifeSpanHandler();
+            //禁用右键的接口是IContextMenuHandler，并实现OnBeforeContextMenu 方法。
             browser.MenuHandler = new MenuHandler();
         }
 
