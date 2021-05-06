@@ -38,7 +38,7 @@ namespace BC.CefSharp
             settings.CefCommandLineArgs.Add("--ignore-urlfetcher-cert-requests", "1");
             settings.CefCommandLineArgs.Add("--ignore-certificate-errors", "1");
             BCCefSharp.Cef.Initialize(settings);
-            browser = new BCCefSharpWinForms.ChromiumWebBrowser("https://localhost:44396/");
+            browser = new BCCefSharpWinForms.ChromiumWebBrowser("http://www.mesall.cn:33044/");
             //browser.Load( "http://www.google.ca" );
 
             //var obj = new BC(System.Threading.SynchronizationContext.Current);
